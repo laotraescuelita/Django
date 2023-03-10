@@ -1,0 +1,116 @@
+{% load static %}
+{% load carrito_template_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Leer archivo css -->
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+    
+
+    {% if titulo %}
+        <title>Papeleria - {{ titulo }}</title>
+    {% else %}
+        <title>Papeleria</title>
+    {% endif %}
+</head>
+
+<body>
+<div class="container mt-5">
+<!-- Barrra de navegacion con el carrito -->
+<nav class="navbar fixed-top navbar-expand-lg" style="background-color: #587183;">    
+
+  <!-- Contenedor que se ajusta a la página -->
+  <div class="container">      
+      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">          
+      </button>
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent1">          
+          <!-- Lisgas de la parte izquierda -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'inicio' %}">Papelería Diana</a>
+              </li>                              
+          </ul>
+          <!-- Lisgas de la parte izquierda -->
+      </div>
+      <!-- Collapsible wrapper -->
+
+      <!-- Ligas de la parte derecha -->
+      <div class="d-flex align-items-center">  
+        
+        {% if user.is_authenticated %}
+            <a class="nav-link me-3" href="{% url 'orden_resumen' %}">
+                <span class="clearfix d-none d-sm-inline-block"> carrito </span>                               
+                <img  class="cart-icon" src="{% static 'img/carrito.jpg' %}" style="width: 50px;">                                
+                <span class="badge rounded-pill badge-notification bg-danger">
+                    {{ request.user|cuenta_articulos_carrito}}
+                </span>   
+            </a>                
+            <a class="nav-link me-3" href="{% url 'salir' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Salir </span>                
+            </a>          
+            <a class="nav-link me-3" href="{% url 'perfil' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Perfil </span>  
+            </a>
+        {% else %}        
+            
+            <a class="nav-link me-3" href="{% url 'ingresar' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Ingresar </span>                
+            </a>
+            <a class="nav-link me-3" href="{% url 'registrar' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Registrarse </span>                
+            </a>
+        {%endif %}
+      </div>
+      <!-- Ligas de la parte derecha -->
+    </div>
+  <!-- Contenedor que se ajusta a la página -->
+</nav>
+<!-- Barrra de navegacion con el carrito -->
+</div>  
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+    {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="container-fluid">
+{%block contenido%}
+{%endblock%}
+</div>
+  
+    
+    <!--Contenedor del pie de página-->  
+    <div class="container">   
+      <!-- Pie de página -->
+      <footer class="text-center text-white mt-4" style="background-color: #607D8B">
+        <hr class="text-dark">    
+      
+      <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); color: #E0E0E0">
+            © 2023 Copyright:
+            <a class="text-white" href="#">ejemplo.com</a>
+        </div>
+      <!-- Copyright -->
+      </footer>  
+    </div>
+    <!--Contenedor del pie de página-->  
+
+    <!-- Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends 'Pape/base.html' %}
+
+{% block contenido %}
+<main>
+    <div class="container pt-5">
+
+        <div class="table-responsive text-nowrap">
+            <h2>Resultados de la busqueda</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Lugar</th>
+                    <th scope="col">Categoria</th>
+                </tr>
+                </thead>
+
+                <tbody>                
+                    {% for articulo in productos %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ articulo.nombre }}</td>
+                        <td>{{ articulo.precio }}</td>
+                        <td>{{ articulo.lugar }}</td>
+                        <td>{{ articulo.categoria }}</td>
+                        <td>                        
+                            <a href="{{ articulo.url_agregar_carrito }}" class="btn btn-primary ms-1">
+                                Agregar al carrito
+                            </a>                            
+                        </td>
+                    </tr>                               
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">No se encontro un solo resultado.</td>        
+                            <td colspan="4">                            
+                                <a class="btn btn-primary float-end" href="/">Continuar buscando</a>
+                            </td>
+                        </tr>
+                    {% endfor %}                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+{% endblock contenido %}
+
