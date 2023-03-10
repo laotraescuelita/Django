@@ -1,0 +1,21 @@
+{% extends "Pape/base.html" %}
+
+{% block contenido %}
+    <div class="content-section pt-5" >
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Unete hoy</legend>
+                {{ forma.as_p }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Registrate</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Ya tienes una cuenta? <a class="ml-2" href="{% url 'ingresar' %}">Ingresa</a>
+            </small>
+        </div>
+    </div>
+{% endblock contenido %}
