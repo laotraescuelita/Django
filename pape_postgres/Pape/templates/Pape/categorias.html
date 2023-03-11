@@ -1,0 +1,81 @@
+{% extends "Pape/base.html"%}
+{% load static %}
+{%block contenido%}
+
+<main>
+<!--Contenedor de la barra de navegación-->  
+<div class="container pt-5 ">
+
+  <!-- Productos -->
+    <section>
+      <div class="text-center">
+        <div class="row">
+          
+          {% for producto in object_list %}
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                data-mdb-ripple-color="light">                
+                <a href="{{ producto.url_absoluta }}">                  
+                  <img class="w-100" src="{{ producto.imagen.url }}">
+                  <div class="mask">                    
+                  </div>
+                  <div class="hover-overlay">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                  </div>
+                </a>
+              </div>
+              <div class="card-body">
+                <a href="{{ producto.url_absoluta }}" class="text-reset">
+                  <h5 class="card-title mb-2">{{ producto.nombre }}</h5>
+                  <span class="badge badge-pill {{ producto.etiqueta }}-color"></span>
+                </a>
+                <a href="{{ producto.url_categoria }}" class="text-reset ">
+                  <h5>{{ producto.get_categoria_display }}</h5>
+                </a>
+                <h6 class="mb-3 price">
+                  {% if producto.precio_descuento %}
+                    {{ producto.precio_descuento }}
+                  {% else %}
+                    {{ producto.precio }}
+                  {% endif %}         
+                </h6>
+              </div>
+            </div>
+          </div> 
+          {% endfor %}     
+      </div>  
+  </section>
+</div>
+
+{% if is_paginated %}
+  <!-- Pagination -->
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number}}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+      
+      <li class="page-item active">
+        <a class="page-link" href="?page={{ page_obj.number}}">{{ page_obj.number}}</a>
+      </li>
+      
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>  
+  <!-- Pagination -->
+  {% endif %}
+  
+</main>
+
+{%endblock%}
